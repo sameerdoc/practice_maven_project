@@ -9,6 +9,7 @@ pipeline {
                 sh 'mvn clean install package'
                 echo 'build complete!'
             }
+        }
         stage('Upload to AWS S3') {
               steps {
                 dir('/var/lib/jenkins/workspace/maven-build'){
@@ -20,8 +21,5 @@ pipeline {
             }    
         }
 
-
     }
-
-}
 }
