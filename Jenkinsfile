@@ -12,12 +12,10 @@ pipeline {
         }
         stage('Upload to AWS S3') {
               steps {
-                dir('/var/lib/jenkins/workspace/maven-build'){
-                    withAWS(region:'us-east-1',credentials:'awsS3') {
-                        sh 'echo "Uploading content with AWS creds"'
-                        s3Upload(bucket:'practice-maven-artifact-repo', workingDir:'/var/lib/jenkins/workspace/maven-build/webapp/target/', includePathPattern:'**/*.war')
+                withAWS(region:'us-east-1',credentials:'awsS3') {
+                    sh 'echo "Uploading content with AWS creds"'
+                    s3Upload(file:'/var/lib/jenkins/workspace/maven-build/webapp/target/*.war', bucket:'practice-maven-artifact-repo', path:'/artifact/')
                   }
-              }
             }    
         }
 
